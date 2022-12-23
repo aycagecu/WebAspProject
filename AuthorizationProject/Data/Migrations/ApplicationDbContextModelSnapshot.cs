@@ -31,19 +31,21 @@ namespace AuthorizationProject.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BasvuruId"), 1L, 1);
 
                     b.Property<string>("BasvuranUserId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("BasvuruDurumu")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("BasvuruFormu")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("BasvuruTarihi")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("HayvanID")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("HayvanID")
+                        .HasColumnType("int");
 
                     b.Property<string>("UserName")
                         .IsRequired()
@@ -55,13 +57,16 @@ namespace AuthorizationProject.Data.Migrations
 
                     b.HasIndex("HayvanID");
 
-                    b.ToTable("Basvuru");
+                    b.ToTable("Basvurular");
                 });
 
             modelBuilder.Entity("AuthorizationProject.Models.Hayvan", b =>
                 {
-                    b.Property<string>("HayvanID")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<int>("HayvanId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HayvanId"), 1L, 1);
 
                     b.Property<string>("HayvanCinsiyet")
                         .IsRequired()
@@ -75,6 +80,10 @@ namespace AuthorizationProject.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("HayvanResim")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("HayvanSehir")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -82,9 +91,9 @@ namespace AuthorizationProject.Data.Migrations
                     b.Property<int>("HayvanYas")
                         .HasColumnType("int");
 
-                    b.HasKey("HayvanID");
+                    b.HasKey("HayvanId");
 
-                    b.ToTable("Hayvan");
+                    b.ToTable("Hayvanlar");
                 });
 
             modelBuilder.Entity("AuthorizationProject.Models.UserDetails", b =>
@@ -297,9 +306,7 @@ namespace AuthorizationProject.Data.Migrations
                 {
                     b.HasOne("AuthorizationProject.Models.UserDetails", "BasvuranUser")
                         .WithMany("UserBasvurular")
-                        .HasForeignKey("BasvuranUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("BasvuranUserId");
 
                     b.HasOne("AuthorizationProject.Models.Hayvan", "BasvurulanHayvan")
                         .WithMany()

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace AuthorizationProject.Data.Migrations
 {
-    public partial class projectİlk : Migration
+    public partial class uc : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -27,6 +27,20 @@ namespace AuthorizationProject.Data.Migrations
                 oldType: "nvarchar(128)",
                 oldMaxLength: 128);
 
+            migrationBuilder.AddColumn<string>(
+                name: "UserAd",
+                table: "AspNetUsers",
+                type: "nvarchar(max)",
+                nullable: false,
+                defaultValue: "");
+
+            migrationBuilder.AddColumn<string>(
+                name: "UserSoyad",
+                table: "AspNetUsers",
+                type: "nvarchar(max)",
+                nullable: false,
+                defaultValue: "");
+
             migrationBuilder.AlterColumn<string>(
                 name: "ProviderKey",
                 table: "AspNetUserLogins",
@@ -46,68 +60,78 @@ namespace AuthorizationProject.Data.Migrations
                 oldMaxLength: 128);
 
             migrationBuilder.CreateTable(
-                name: "Hayvan",
+                name: "Hayvanlar",
                 columns: table => new
                 {
-                    HayvanID = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    HayvanId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     HayvanKategori = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     HayvanYas = table.Column<int>(type: "int", nullable: false),
                     HayvanIrk = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     HayvanCinsiyet = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    HayvanSehir = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    HayvanSehir = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    HayvanResim = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Hayvan", x => x.HayvanID);
+                    table.PrimaryKey("PK_Hayvanlar", x => x.HayvanId);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Basvuru",
+                name: "Basvurular",
                 columns: table => new
                 {
                     BasvuruId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     BasvuruTarihi = table.Column<DateTime>(type: "datetime2", nullable: false),
                     BasvuruDurumu = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BasvuranUserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    BasvuranUserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    BasvuruFormu = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    HayvanID = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                    HayvanID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Basvuru", x => x.BasvuruId);
+                    table.PrimaryKey("PK_Basvurular", x => x.BasvuruId);
                     table.ForeignKey(
-                        name: "FK_Basvuru_AspNetUsers_BasvuranUserId",
+                        name: "FK_Basvurular_AspNetUsers_BasvuranUserId",
                         column: x => x.BasvuranUserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Basvuru_Hayvan_HayvanID",
+                        name: "FK_Basvurular_Hayvanlar_HayvanID",
                         column: x => x.HayvanID,
-                        principalTable: "Hayvan",
-                        principalColumn: "HayvanID",
+                        principalTable: "Hayvanlar",
+                        principalColumn: "HayvanId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Basvuru_BasvuranUserId",
-                table: "Basvuru",
+                name: "IX_Basvurular_BasvuranUserId",
+                table: "Basvurular",
                 column: "BasvuranUserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Basvuru_HayvanID",
-                table: "Basvuru",
+                name: "IX_Basvurular_HayvanID",
+                table: "Basvurular",
                 column: "HayvanID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Basvuru");
+                name: "Basvurular");
 
             migrationBuilder.DropTable(
-                name: "Hayvan");
+                name: "Hayvanlar");
+
+            migrationBuilder.DropColumn(
+                name: "UserAd",
+                table: "AspNetUsers");
+
+            migrationBuilder.DropColumn(
+                name: "UserSoyad",
+                table: "AspNetUsers");
 
             migrationBuilder.AlterColumn<string>(
                 name: "Name",

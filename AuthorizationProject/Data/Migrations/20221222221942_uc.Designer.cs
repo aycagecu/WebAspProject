@@ -12,17 +12,91 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AuthorizationProject.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221218094547_Name")]
-    partial class Name
+    [Migration("20221222221942_uc")]
+    partial class uc
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.10")
+                .HasAnnotation("ProductVersion", "6.0.12")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("AuthorizationProject.Models.Basvuru", b =>
+                {
+                    b.Property<int>("BasvuruId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BasvuruId"), 1L, 1);
+
+                    b.Property<string>("BasvuranUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("BasvuruDurumu")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("BasvuruFormu")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("BasvuruTarihi")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("HayvanID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("BasvuruId");
+
+                    b.HasIndex("BasvuranUserId");
+
+                    b.HasIndex("HayvanID");
+
+                    b.ToTable("Basvurular");
+                });
+
+            modelBuilder.Entity("AuthorizationProject.Models.Hayvan", b =>
+                {
+                    b.Property<int>("HayvanId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HayvanId"), 1L, 1);
+
+                    b.Property<string>("HayvanCinsiyet")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HayvanIrk")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HayvanKategori")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HayvanResim")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HayvanSehir")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("HayvanYas")
+                        .HasColumnType("int");
+
+                    b.HasKey("HayvanId");
+
+                    b.ToTable("Hayvanlar");
+                });
 
             modelBuilder.Entity("AuthorizationProject.Models.UserDetails", b =>
                 {
@@ -177,12 +251,10 @@ namespace AuthorizationProject.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -219,12 +291,10 @@ namespace AuthorizationProject.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasMaxLength(128)
-                        .HasColumnType("nvarchar(128)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -232,6 +302,23 @@ namespace AuthorizationProject.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("AuthorizationProject.Models.Basvuru", b =>
+                {
+                    b.HasOne("AuthorizationProject.Models.UserDetails", "BasvuranUser")
+                        .WithMany("UserBasvurular")
+                        .HasForeignKey("BasvuranUserId");
+
+                    b.HasOne("AuthorizationProject.Models.Hayvan", "BasvurulanHayvan")
+                        .WithMany()
+                        .HasForeignKey("HayvanID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BasvuranUser");
+
+                    b.Navigation("BasvurulanHayvan");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -283,6 +370,11 @@ namespace AuthorizationProject.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("AuthorizationProject.Models.UserDetails", b =>
+                {
+                    b.Navigation("UserBasvurular");
                 });
 #pragma warning restore 612, 618
         }

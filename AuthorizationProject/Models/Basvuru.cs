@@ -9,10 +9,11 @@ namespace AuthorizationProject.Models
         public Hayvan BasvurulanHayvan { get; set; }
         public string BasvuruDurumu { get; set; }
         public UserDetails BasvuranUser { get; set; }
+        public string BasvuruFormu { get; set; }
 
         [ForeignKey("UserDetails")]
         public string UserName { get; set; }
         [ForeignKey("Hayvan")]
-        public string HayvanID { get; set; }
+        public int HayvanID { get; set; }
     }
 }

@@ -1,0 +1,42 @@
+﻿@model AuthorizationProject.Models.Hayvan
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="HayvanEklePost" enctype="multipart/form-data"  method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="HayvanKategori" class="control-label"></label>
+                <input asp-for="HayvanKategori" class="form-control" ></input>
+                <span asp-validation-for="HayvanKategori" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HayvanYas" class="control-label"></label>
+                <input asp-for="HayvanYas" class="form-control">
+            </div>
+            <div class="form-group">
+                <label asp-for="HayvanIrk" class="control-label"></label>
+                <input asp-for="HayvanIrk" class="form-control">
+            </div>
+            <div class="form-group">
+                <label asp-for="HayvanCinsiyet" class="control-label"></label>
+                <input asp-for="HayvanCinsiyet" class="form-control"></input>
+            </div>
+            <div class="form-group">
+                <label asp-for="HayvanSehir" class="control-label"></label>
+                <input asp-for="HayvanSehir" class="form-control">  
+            </div>
+            <div class="form-group">
+                <label for="exampleInputEmail1">Resim Bilgileri</label>
+                <input type="file" name="file" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Ekle" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
