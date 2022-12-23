@@ -14,5 +14,6 @@ namespace AuthorizationProject.Models
         public string HayvanCinsiyet { get; set; }
         public string HayvanSehir { get; set; }
         public string HayvanResim { get; set; }
+
     }
 }
