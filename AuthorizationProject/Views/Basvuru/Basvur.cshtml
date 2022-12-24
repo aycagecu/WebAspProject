@@ -3,3 +3,46 @@
 *@
 @{
 }
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="İslemAlindi" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label class="control-label">Adresiniz : </label>
+                <input type="text" name="str1" class="form-control">
+            </div>
+            <div class="form-group">
+                <label class="control-label">Başka evcil hayvanınız var mı? </label>
+                <select name="kontrol1" id="yesno">
+                    <option value="evet">Evet</option>
+                    <option value="hayır">Hayır</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Hastalık veya kaza durumunda sağlık hizmetlerine götürmeyi kabul ediyor musunuz? </label>
+                <select name="kontrol2" id="yesno">
+                    <option value="evet">Evet</option>
+                    <option value="hayır">Hayır</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Dönemsel kontrol ziyaretlerine izin veriyor musunuz? </label>
+                <select name="kontrol3" id="yesno">
+                    <option value="evet">Evet</option>
+                    <option value="hayır">Hayır</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Sahiplenmek istediğiniz hayvanın ileride kısırlaştırılmasını kabul ediyor musunuz? </label>
+                <select name="kontrol4" id="yesno">
+                    <option value="evet">Evet</option>
+                    <option value="hayır">Hayır</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Gönder" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

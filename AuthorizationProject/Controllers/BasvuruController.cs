@@ -12,6 +12,41 @@ namespace AuthorizationProject.Controllers
 {
     public class BasvuruController : Controller
     {
-       
+        ApplicationDbContext dbContext;
+        public BasvuruController(ApplicationDbContext _dbContext)
+        {
+            dbContext = _dbContext;
+        }
+
+        public IActionResult Index()
+        {
+            return View();
+        }
+
+        public IActionResult Basvur(int id)
+        {
+            // if (!User.Identity.IsAuthenticated) RedirectToPage("Login"); 
+            TempData["id"] = id;
+            return View();
+        }
+
+        public IActionResult İslemAlindi(string str1, string kontrol1, string kontrol2, string kontrol3, string kontrol4)
+        {
+
+            Basvuru b = new Basvuru();
+            b.BasvuruFormu = str1 + "\n" + kontrol1 + "\n" + kontrol2 + "\n" + kontrol3 + "\n" + kontrol4;
+            b.BasvuruTarihi = DateTime.Now;
+            b.BasvurulanHayvan = dbContext.Hayvanlar.Where(h => h.HayvanId == Convert.ToInt32(TempData["id"])).First();
+            b.BasvuruDurumu = "Onay Bekliyor";
+            b.BasvuranUser = dbContext.Users.Where(u => u.UserName == User.Identity.Name).FirstOrDefault();
+            b.HayvanID = dbContext.Hayvanlar.Where(h => h.HayvanId == Convert.ToInt32(TempData["id"])).Select(h => h.HayvanId).FirstOrDefault();
+            b.UserName = (from u in dbContext.Users
+                          where u.UserName == User.Identity.Name
+                          select u.UserName).FirstOrDefault();
+            dbContext.Add(b);
+            dbContext.SaveChanges();
+            return View(b);
+        }
+
     }
 }
