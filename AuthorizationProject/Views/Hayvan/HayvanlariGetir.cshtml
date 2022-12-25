@@ -6,19 +6,6 @@
 }
 
 @foreach(var h in Model){
-    <div>
-        <table>
-            <th><td><img src=@h.HayvanResim /></td></th>
-            <th><td>@h.HayvanKategori</td></th>
-            <th><td>@h.HayvanCinsiyet</td></th>
-            <th><td>@h.HayvanIrk</td></th>
-            <th><td>@h.HayvanSehir</td></th>
-        </table>
-        
-              <a asp-controller="Basvuru" asp-action="Basvur" asp-route-id="@h.HayvanId">Sahiplen!</a>
-        
-        
-  
-      
-    </div>
+   <vc:hayvan-vc h="h"></vc:hayvan-vc>
+    <a asp-controller="Basvuru" asp-action="Basvur" asp-route-id="@h.HayvanId">Sahiplen!</a>
 }

@@ -27,5 +27,6 @@ namespace AuthorizationProject.Controllers
             return View(basvurular);
         }
 
+       
     }
 }

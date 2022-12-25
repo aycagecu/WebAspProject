@@ -22,15 +22,12 @@ namespace AuthorizationProject.Controllers
         public IActionResult HayvanlariGetir()
         {
             ViewData["HayvanKategori"] = new SelectList(dbContext.Hayvanlar, "HayvanKategori", "HayvanKategori");
+            ViewData["HayvanCins"] = new SelectList(dbContext.Hayvanlar, "HayvanCins", "HayvanCins");
             var hayvanlar = dbContext.Hayvanlar.ToList();
             return View(hayvanlar);
         }
         public IActionResult HayvanEkle()
         {
-            /*
-            ViewData["HayvanKategori"] = new SelectList(dbContext.Hayvanlar, "HayvanKategori", "HayvanKategori");
-            ViewData["HayvanCinsiyet"] = new SelectList(dbContext.Hayvanlar, "HayvanCinsiyet", "HayvanCinsiyet");
-            */
             return View();    //hayvan ekleme formuna götüren view
         }
 
