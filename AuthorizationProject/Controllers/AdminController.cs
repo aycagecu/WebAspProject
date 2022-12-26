@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AuthorizationProject.Controllers
 {
-    [Authorize(Roles ="admin")]
+    [Authorize(Roles = "admin")]
     public class AdminController : Controller
     {
         ApplicationDbContext dbContext;
@@ -28,7 +28,7 @@ namespace AuthorizationProject.Controllers
                               on h.HayvanId equals b.HayvanID
                               join u in dbContext.Users
                               on b.UserName equals u.UserName
-                              where b.BasvuruDurumu=="Onay Bekliyor"
+                              where b.BasvuruDurumu == "Onay Bekliyor"
                               select new
                               {
                                   h,
