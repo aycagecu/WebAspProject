@@ -3,6 +3,7 @@ using AuthorizationProject.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Specialized;
 using System.Drawing;
 
 namespace AuthorizationProject.Controllers
@@ -22,10 +23,37 @@ namespace AuthorizationProject.Controllers
         public IActionResult HayvanlariGetir()
         {
             ViewData["HayvanKategori"] = new SelectList(dbContext.Hayvanlar, "HayvanKategori", "HayvanKategori");
-            ViewData["HayvanCins"] = new SelectList(dbContext.Hayvanlar, "HayvanCins", "HayvanCins");
-            var hayvanlar = dbContext.Hayvanlar.ToList();
-            return View(hayvanlar);
+            ViewData["HayvanIrk"] = new SelectList(dbContext.Hayvanlar, "HayvanIrk", "HayvanIrk");
+            ViewBag.hayvanlar = dbContext.Hayvanlar.ToList();
+            return View();
         }
+
+        [HttpPost]
+        public IActionResult HayvanlariGetirPost([Bind("HayvanKategori","HayvanIrk")] Hayvan h)
+        {
+            List<Hayvan> selHayvanlar;
+            if (h.HayvanKategori ==null)
+            {
+                if (h.HayvanIrk == null)
+                {
+                     selHayvanlar = dbContext.Hayvanlar.ToList();
+                }
+                else  selHayvanlar = dbContext.Hayvanlar.Where(hy => hy.HayvanIrk == h.HayvanIrk).ToList();
+            }
+            else 
+            {
+                if (h.HayvanIrk == null)
+                {
+                    selHayvanlar = dbContext.Hayvanlar.Where(hy => hy.HayvanKategori == h.HayvanKategori).ToList();
+                }
+                else selHayvanlar = dbContext.Hayvanlar.Where(hy => hy.HayvanKategori == h.HayvanKategori && hy.HayvanIrk == h.HayvanIrk).ToList();
+
+            }
+            return View(selHayvanlar);
+        }
+
+
+
         public IActionResult HayvanEkle()
         {
             return View();    //hayvan ekleme formuna götüren view

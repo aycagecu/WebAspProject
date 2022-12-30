@@ -1,0 +1,13 @@
+﻿@model List<Hayvan>
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div >
+    @foreach (var h in Model)
+    {
+           <vc:hayvan-vc h="h"></vc:hayvan-vc>
+            <a asp-controller="Basvuru" asp-action="Basvur" asp-route-id="@h.HayvanId">Sahiplen!</a>
+    }
+</div>
