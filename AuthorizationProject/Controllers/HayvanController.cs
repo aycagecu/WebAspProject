@@ -20,14 +20,6 @@ namespace AuthorizationProject.Controllers
             return View();
         }
 
-        public IActionResult HayvanlariGetir()
-        {
-            ViewData["HayvanKategori"] = new SelectList(dbContext.Hayvanlar, "HayvanKategori", "HayvanKategori");
-            ViewData["HayvanIrk"] = new SelectList(dbContext.Hayvanlar, "HayvanIrk", "HayvanIrk");
-            ViewBag.hayvanlar = dbContext.Hayvanlar.ToList();
-            return View();
-        }
-
         [HttpPost]
         public IActionResult HayvanlariGetirPost([Bind("HayvanKategori","HayvanIrk")] Hayvan h)
         {
