@@ -3,6 +3,7 @@ using AuthorizationProject.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Localization;
 using System.Collections.Specialized;
 using System.Drawing;
 
@@ -11,39 +12,18 @@ namespace AuthorizationProject.Controllers
     public class HayvanController : Controller
     {
         ApplicationDbContext dbContext;
-        public HayvanController(ApplicationDbContext cont)
+        private readonly IStringLocalizer<HomeController> _localizer;
+        public HayvanController(ApplicationDbContext cont, IStringLocalizer<HomeController> localizer)
         {
             dbContext = cont;
+            _localizer = localizer;
         }
         public IActionResult Index()
         {
             return View();
         }
 
-        [HttpPost]
-        public IActionResult HayvanlariGetirPost([Bind("HayvanKategori","HayvanIrk")] Hayvan h)
-        {
-            List<Hayvan> selHayvanlar;
-            if (h.HayvanKategori ==null)
-            {
-                if (h.HayvanIrk == null)
-                {
-                     selHayvanlar = dbContext.Hayvanlar.ToList();
-                }
-                else  selHayvanlar = dbContext.Hayvanlar.Where(hy => hy.HayvanIrk == h.HayvanIrk).ToList();
-            }
-            else 
-            {
-                if (h.HayvanIrk == null)
-                {
-                    selHayvanlar = dbContext.Hayvanlar.Where(hy => hy.HayvanKategori == h.HayvanKategori).ToList();
-                }
-                else selHayvanlar = dbContext.Hayvanlar.Where(hy => hy.HayvanKategori == h.HayvanKategori && hy.HayvanIrk == h.HayvanIrk).ToList();
-
-            }
-            return View(selHayvanlar);
-        }
-
+       
 
 
         public IActionResult HayvanEkle()
@@ -61,7 +41,7 @@ namespace AuthorizationProject.Controllers
 
                 string imageName = Guid.NewGuid() + imageExtension;
 
-                path = Path.Combine(Directory.GetCurrentDirectory(), $"wwwroot/images/{imageName}");
+                path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images",file.FileName);
 
                 using var stream = new FileStream(path, FileMode.Create);
 
@@ -71,7 +51,7 @@ namespace AuthorizationProject.Controllers
 
             dbContext.Add(h);
             dbContext.SaveChanges();
-            return RedirectToAction("HayvanlariGetir");
+            return RedirectToAction("Index","CallHayvanApi");
         }
 
         //hayvanı db e kaydeder ve hayvan goruntule sayfasina dondurur

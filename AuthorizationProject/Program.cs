@@ -1,8 +1,12 @@
 using AuthorizationProject.Data;
 using AuthorizationProject.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,9 +29,25 @@ builder.Services.Configure<IdentityOptions>(options =>
 
 
 
+builder.Services.AddMvc().AddViewLocalization(LanguageViewLocationExpanderFormat
+                 .Suffix).AddDataAnnotationsLocalization();
+builder.Services.Configure<RequestLocalizationOptions>(options =>
+{
+    var supportedCultures = new[]
+    {
+                    new CultureInfo("tr"),
+                    new CultureInfo("en-US"),
+                    new CultureInfo("fr"),
+
+                };
+    options.DefaultRequestCulture = new RequestCulture(culture: "tr", uiCulture: "tr");
+    options.SupportedCultures = supportedCultures;
+    options.SupportedUICultures = supportedCultures;
+});
 
 
-builder.Services.AddControllersWithViews();
+
+//builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
@@ -47,6 +67,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+var locOptions = ((IApplicationBuilder)app).ApplicationServices.GetRequiredService<IOptions<RequestLocalizationOptions>>();
+app.UseRequestLocalization(locOptions.Value);
 
 app.UseAuthentication();
 app.UseAuthorization();

@@ -7,7 +7,7 @@
 <div >
     @foreach (var h in Model)
     {
-           <vc:hayvan-vc h="h"></vc:hayvan-vc>
-            <a asp-controller="Basvuru" asp-action="Basvur" asp-route-id="@h.HayvanId">Sahiplen!</a>
+               <vc:hayvan-vc h="h"></vc:hayvan-vc>
+               <a asp-controller="Basvuru" asp-action="Basvur" asp-route-id="@h.HayvanId">Sahiplen!</a>
     }
 </div>

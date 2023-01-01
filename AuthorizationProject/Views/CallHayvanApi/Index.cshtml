@@ -9,7 +9,7 @@
 
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="HayvanlariGetirPost" asp-controller="Hayvan">
+        <form asp-action="HayvanlariGetirPost" asp-controller="CallHayvanApi">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div style="float:left" class="form-group">
                 <label asp-for="HayvanKategori" class="control-label"></label>
@@ -34,6 +34,7 @@
 @foreach (var h in ViewBag.hayvanlar)
 {
     <vc:hayvan-vc h=h></vc:hayvan-vc>
+    <a asp-controller="Basvuru" asp-action="Basvur" asp-route-id="@h.HayvanId">Sahiplen!</a>
 }
 
 
