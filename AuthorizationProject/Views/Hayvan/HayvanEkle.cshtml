@@ -59,33 +59,38 @@
             </div>
             <div class="row justify-content-center">
                 <div class="col-lg-8 col-xl-7">
-                <form asp-action="HayvanEklePost" asp-route-culture="@culture" asp-route-ui-culture="@uiculture" enctype="multipart/form-data" method="post">
+                <form asp-action="HayvanEkle" asp-route-culture="@culture" asp-route-ui-culture="@uiculture" enctype="multipart/form-data" method="post">
                         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                         <div class="form-floating mb-3">
-                            <input asp-for="HayvanKategori" class="form-control" type="text" placeholder="Kategori giriniz..."></input>
+                            <input asp-for="HayvanKategori" class="form-control" type="text" placeholder="Kategori giriniz..." ></input>
                             <label asp-for="HayvanKategori" class="control-label"></label>
                             <span asp-validation-for="HayvanKategori" class="text-danger"></span>
                         </div>
                         <div class="form-floating mb-3">
                             <input asp-for="HayvanYas" class="form-control" placeholder="Hayvanın yaşını giriniz...">
                             <label asp-for="HayvanYas" class="control-label"></label>
+                             <span asp-validation-for="HayvanYas" class="text-danger"></span>
                         </div>
                         <div class="form-floating mb-3">
                             <input asp-for="HayvanIrk" class="form-control" placeholder="Hayvanın ırkını giriniz...">
                             <label asp-for="HayvanIrk" class="control-label"></label>
+                        <span asp-validation-for="HayvanIrk" class="text-danger"></span>
                         </div>
                         <div class="form-floating mb-3">
                             <input asp-for="HayvanCinsiyet" class="form-control" placeholder="Hayvanın cinsiyetini giriniz..."></input>
                             <label asp-for="HayvanCinsiyet" class="control-label"></label>
+                        <span asp-validation-for="HayvanCinsiyet" class="text-danger"></span>
                         </div>
                         <div class="form-floating mb-3">
                             <input asp-for="HayvanSehir" class="form-control" placeholder="Hayvanın bulunduğu şehri giriniz...">
                             <label asp-for="HayvanSehir" class="control-label"></label>
+                        <span asp-validation-for="HayvanSehir" class="text-danger"></span>
                         </div>
                         <div class="form-floating mb-3">
 
                         <input type="file" name="file" class="form-control" />
                         <label asp-for="HayvanResim" class="control-label"></label>
+                        <span asp-validation-for="HayvanResim" class="text-danger"></span>
                         </div>
                         <div class="form-floating mb-3">
                             <button class="btn btn-primary btn-xl" type="submit">@Localizer["Ekle"]</button>
@@ -106,3 +111,5 @@
         window.location.href = url + culture;
     }
 </script>
+
+

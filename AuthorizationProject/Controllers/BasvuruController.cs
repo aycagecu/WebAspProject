@@ -25,7 +25,7 @@ namespace AuthorizationProject.Controllers
 
         public IActionResult Basvur(int id)
         {
-            // if (!User.Identity.IsAuthenticated) RedirectToPage("Login"); 
+            //if (!User.Identity.IsAuthenticated) return  Redirect("/Areas/Identity/Pages/Account/Login.cshtml");
             TempData["id"] = id;
             return View();
         }
@@ -34,7 +34,11 @@ namespace AuthorizationProject.Controllers
         {
 
             Basvuru b = new Basvuru();
-            b.BasvuruFormu = str1 + "\n" + kontrol1 + "\n" + kontrol2 + "\n" + kontrol3 + "\n" + kontrol4;
+            b.BasvuruFormu = "Adresiniz : "+str1 + "\n" +
+                "Başka evcil hayvanınız var mı? "+ kontrol1 + "\n" +
+                "Hastalık veya kaza durumunda sağlık hizmetlerine götürmeyi kabul ediyor musunuz? " + kontrol2 + "\n" +
+                "Dönemsel kontrol ziyaretlerine izin veriyor musunuz? " + kontrol3 + "\n"+
+                "Sahiplenmek istediğiniz hayvanın ileride kısırlaştırılmasını kabul ediyor musunuz? " + kontrol4;
             b.BasvuruTarihi = DateTime.Now;
             b.BasvurulanHayvan = dbContext.Hayvanlar.Where(h => h.HayvanId == Convert.ToInt32(TempData["id"])).First();
             b.BasvuruDurumu = "Onay Bekliyor";

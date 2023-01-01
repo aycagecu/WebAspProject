@@ -23,8 +23,19 @@ namespace AuthorizationProject.Controllers
         public IActionResult BasvurularimiGetir()
         {
             //şu an aktif olan kullanıcının başvurularını gönderir
-            List<Basvuru> basvurular = dbContext.Basvurular.Where(u=>u.UserName==User.Identity.Name).ToList();
-            return View(basvurular);
+            ViewBag.basvuru = from h in dbContext.Hayvanlar
+                              join b in dbContext.Basvurular
+                              on h.HayvanId equals b.HayvanID
+                              join u in dbContext.Users
+                              on b.UserName equals u.UserName
+                              where b.UserName == User.Identity.Name
+                              select new
+                              {
+                                  h,
+                                  u,
+                                  b
+                              };
+            return View();
         }
 
        

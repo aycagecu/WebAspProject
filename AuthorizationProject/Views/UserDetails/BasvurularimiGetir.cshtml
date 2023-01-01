@@ -1,16 +1,26 @@
-﻿@model List<AuthorizationProject.Models.Basvuru>
+﻿
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
+    var bsvr = ViewBag.basvuru;
 }
 
 
-@foreach (var b in Model)
+@foreach (var b in bsvr)
 {
-    @b.BasvurulanHayvan
-    @b.BasvuruTarihi
-    @b.BasvuruFormu
-    @b.BasvuruDurumu
+    <table>
+        <tr>
+            <td>Başvurduğunuz hayvan:
+                    <div>
+                        <vc:hayvan-vc h=@b.h></vc:hayvan-vc>
+                    </div>
+
+             </td>
+         </tr>
+        <tr><td>Başvurulan Tarih : @b.b.BasvuruTarihi</td></tr>
+        <tr><td>Başvuru Durumu : @b.b.BasvuruDurumu</td></tr>
+        <tr><br/><br/></tr>
+    </table>
 }
 

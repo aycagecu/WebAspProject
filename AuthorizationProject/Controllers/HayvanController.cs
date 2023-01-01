@@ -23,7 +23,7 @@ namespace AuthorizationProject.Controllers
             return View();
         }
 
-       
+
 
 
         public IActionResult HayvanEkle()
@@ -32,7 +32,8 @@ namespace AuthorizationProject.Controllers
         }
 
         [HttpPost]
-        public IActionResult HayvanEklePost(Hayvan h, IFormFile file)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> HayvanEkle([Bind("HayvanId,HayvanKategori,HayvanYas,HayvanIrk,HayvanCinsiyet,HayvanSehir,HayvanResim")] Hayvan h, IFormFile file)
         {
             string path;
             if (file != null)
@@ -41,17 +42,20 @@ namespace AuthorizationProject.Controllers
 
                 string imageName = Guid.NewGuid() + imageExtension;
 
-                path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images",file.FileName);
+                path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\images", file.FileName);
 
                 using var stream = new FileStream(path, FileMode.Create);
 
                 file.CopyToAsync(stream);
                 h.HayvanResim = path;
             }
-
-            dbContext.Add(h);
-            dbContext.SaveChanges();
-            return RedirectToAction("Index","CallHayvanApi");
+            if (ModelState.IsValid)
+            {
+                dbContext.Add(h);
+                await dbContext.SaveChangesAsync();
+                return RedirectToAction("Index", "CallHayvanApi");
+            }
+            return View(h);
         }
 
         //hayvanı db e kaydeder ve hayvan goruntule sayfasina dondurur

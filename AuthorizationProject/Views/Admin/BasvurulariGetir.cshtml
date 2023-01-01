@@ -10,17 +10,30 @@
 {
 
     <div>
-        <h4>@b.u.UserAd</h4>
-        <h4>@b.u.UserSoyad</h4>
-        <h4>@b.u.UserName</h4>
-        <div>
-            <vc:hayvan-vc h=@b.h></vc:hayvan-vc>
-        </div>
-        <h4>@b.b.BasvuruFormu</h4>
-        <h4>@b.b.BasvuruTarihi</h4>
-        <div>
-            <a asp-action="Onayla" asp-controller="Admin" asp-route-id="@b.b.BasvuruId" class="button">Onayla</a>
-            <a asp-action="Reddet" asp-controller="Admin" asp-route-id="@b.b.BasvuruId" class="button">Reddet</a>
-        </div>
+        <table>
+            <tr><td>Başvuran kullanıcının Adı: @b.u.UserAd</td></tr>
+            <tr><td>Başvuran kullanıcının Soyadı:@b.u.UserSoyad</td></tr>
+            <tr><td>Başvuran kullanıcının Maili:@b.u.UserName</td></tr>
+            <tr>
+                <td>Başvurduğu hayvan:
+                    <div>
+                        <vc:hayvan-vc h=@b.h></vc:hayvan-vc>
+                    </div>
+
+                </td>
+            </tr>
+                
+            <tr><td>@b.b.BasvuruFormu</td></tr>
+            <tr><td>Başvuru Tarihi : @b.b.BasvuruTarihi</td></tr>
+            <tr>
+                <td>
+                    <div>
+                        <a asp-action="Onayla" asp-controller="Admin" asp-route-id="@b.b.BasvuruId" class="button">Onayla</a>
+                        <a asp-action="Reddet" asp-controller="Admin" asp-route-id="@b.b.BasvuruId" class="button">Reddet</a>
+                    </div>
+                </td>
+            </tr>
+           
+        </table>
     </div>
 }

@@ -45,18 +45,8 @@
                         }
                     }
                     <li class=class="nav-item mx-0 mx-lg-1">
-                        <a class="nav-link py-3 px-0 px-lg-3 rounded" asp-area="" asp-controller="Home" asp-action="Iletisim">İletişim</a>
+                        <a class="nav-link py-3 px-0 px-lg-3 rounded" href="#bagis">İletişim</a>
                     </li>
-
-                    @if (User.Identity.IsAuthenticated)
-                    {
-                        if (User.IsInRole("admin"))
-                        {
-                            <li class="nav-item mx-0 mx-lg-1">
-                                <a class="nav-link py-3 px-0 px-lg-3 rounded" asp-area="" asp-controller="Yetkilendirme" asp-action="Index">Admin</a>
-                            </li>
-                        }
-                    }
                 </ul>
                 <partial name="_LoginPartial" />
             </div>
@@ -82,31 +72,32 @@
 
     <!-- Footer-->
     <footer class="footer text-center">
-        <div class="container">
+        <div class="container" id="bagis">
             <div class="row">
                 <!-- Footer Location-->
                 <div class="col-lg-4 mb-5 mb-lg-0">
-                    <h4 class="text-uppercase mb-4">Location</h4>
+                    <h4 class="text-uppercase mb-4">ADRES</h4>
                     <p class="lead mb-0">
-                        2215 John Daniel Drive
+                        Yedikule, Çırpıcı Yolu, Mermerkule Sk.
                         <br />
-                        Clark, MO 65243
+                        34107 Fatih/İstanbul
                     </p>
                 </div>
                 <!-- Footer Social Icons-->
                 <div class="col-lg-4 mb-5 mb-lg-0">
-                    <h4 class="text-uppercase mb-4">Around the Web</h4>
+                    <h4 class="text-uppercase mb-4">Sosyal Medya Hesaplarımız</h4>
                     <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-facebook-f"></i></a>
                     <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-twitter"></i></a>
                     <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-linkedin-in"></i></a>
                     <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-dribbble"></i></a>
                 </div>
                 <!-- Footer About Text-->
-                <div class="col-lg-4">
-                    <h4 class="text-uppercase mb-4">About Freelancer</h4>
+                <div class="col-lg-4" >
+                    <h4 class="text-uppercase mb-4">BAĞIŞ</h4>
                     <p class="lead mb-0">
-                        Freelance is a free to use, MIT licensed Bootstrap theme created by
-                        <a href="http://startbootstrap.com">Start Bootstrap</a>
+                        <a href="https://destek.wwf.org.tr/?gclid=EAIaIQobChMIh5Wo34On_AIVCLTVCh1v6wd6EAAYASAAEgLagvD_BwE">Buraya</a> Tıklayarak Kimsesiz Hayvan
+                        Dostlarımıza Yardım İçin Bağışta Bulunabilirsiniz
+
                         .
                     </p>
                 </div>
@@ -311,6 +302,7 @@
         </div>
     </div>
 
+  
     @RenderSection("scripts", required: false)
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
