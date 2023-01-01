@@ -3,6 +3,13 @@
 @using Microsoft.Extensions.Options
 @using Microsoft.AspNetCore.Mvc.Localization
 
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>JS Bin</title>
+</head>
+
+
 @inject IViewLocalizer Localizer
 @inject IOptions<RequestLocalizationOptions> LocOptions
 
@@ -13,9 +20,14 @@
         .ToList();
 }
 
-<label>Language:</label>
-<select onchange="SetCulture(this.value)" asp-for="@requestCulture.RequestCulture.UICulture.Name" asp-items="cultureItems">
-</select>
+<div style="margin-top:30px;">
+    <label style="margin-top=30px;">Language:</label>
+</div>
+
+<div style="margin-top:10px;">
+    <select class="form-select" aria-label="Default select example" onchange="SetCulture(this.value)" asp-for="@requestCulture.RequestCulture.UICulture.Name" asp-items="cultureItems">
+    </select>
+</div>
 
 
 <div asp-validation-summary="All" class="text-danger"></div>
@@ -72,8 +84,8 @@
                         </div>
                         <div class="form-floating mb-3">
 
-                            <input type="file" name="file" class="form-control"/>
-                            <label asp-for="HayvanResim" class="control-label"></label>
+                        <input type="file" name="file" class="form-control" />
+                        <label asp-for="HayvanResim" class="control-label"></label>
                         </div>
                         <div class="form-floating mb-3">
                             <button class="btn btn-primary btn-xl" type="submit">@Localizer["Ekle"]</button>
