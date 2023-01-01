@@ -37,7 +37,6 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
     {
                     new CultureInfo("tr"),
                     new CultureInfo("en-US"),
-                    new CultureInfo("fr"),
 
                 };
     options.DefaultRequestCulture = new RequestCulture(culture: "tr", uiCulture: "tr");

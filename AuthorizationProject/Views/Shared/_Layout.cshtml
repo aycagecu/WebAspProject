@@ -28,7 +28,7 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" asp-controller="CallHayvanApi" asp-action="Index">Hayvanlar</a></li>
-                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" asp-controller="Hayvan" asp-action="HayvanEkle">Hayvan Ekle</a></li>
+                    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" asp-controller="Hayvan" asp-action="HayvanEkle">Hayvan Sahiplendir</a></li>
                     @if (User.Identity.IsAuthenticated)
                     {
                         if (User.IsInRole("user"))
